@@ -37,9 +37,8 @@ public class UnoGUI extends JFrame {
     private JButton mPileButton;
     private JLabel mGamePile;
     private JButton mGameSettingsButton;
-    private Player placeholder = new Player("placeholder");
-    private JFrame message = new JFrame();
-    private JOptionPane optionpane = new JOptionPane();
+    private final Player placeholder = new Player("placeholder");
+    private final JFrame message = new JFrame();
 
     private ACTIONS action;
 
@@ -47,7 +46,7 @@ public class UnoGUI extends JFrame {
     private Player nextPlayer = new Player("next test");
     private Player prevPlayer = new Player("prev test");
     public int round = 0;
-    private ArrayList<Player> mPlayers = new ArrayList<Player>();
+    private final ArrayList<Player> mPlayers = new ArrayList<Player>();
     private Card mTopOfDeckCard;
     private ArrayList<JButton> mCardButtons;
     public SpecialActions model;
@@ -64,14 +63,13 @@ public class UnoGUI extends JFrame {
             String output = model.execute(cardFromTop, action, mGamePileTopCard);
 
             System.out.println(model.getStatus());
-           // message.setLayout(null);
-           // message.setAlwaysOnTop(true);
-           // message.setBounds(250, 200, 0, 0);
-           // message.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-           // message.setVisible(true);
+            message.setLayout(null);
+            message.setAlwaysOnTop(true);
+            message.setBounds(250, 200, 0, 0);
+            message.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            message.setVisible(true);
             if (output.equalsIgnoreCase("invalid move")) {
-            //    optionpane.showMessageDialog(message, output);
-                JOptionPane.showMessageDialog(null, output);
+                JOptionPane.showMessageDialog(message, output);
                 round = model.getRound();
                 mActivePlayer = model.getActivePlayer();
                 nextPlayer = model.getNextPlayer();
@@ -82,27 +80,24 @@ public class UnoGUI extends JFrame {
 
             if (output.equalsIgnoreCase("Winner")) {
                 winnerSound();
-               // JOptionPane.showMessageDialog(message, output);
-                JOptionPane.showMessageDialog(null, output);
+                JOptionPane.showMessageDialog(message, output);
                 this.setVisible(false);
                 this.dispose();
                 break;
             }
 
-           // JOptionPane.showMessageDialog(message, output);
-            JOptionPane.showMessageDialog(null, output);
-
+            JOptionPane.showMessageDialog(message, output);
 
             round = model.getRound();
             mActivePlayer = model.getActivePlayer();
             nextPlayer = model.getNextPlayer();
             prevPlayer = model.getPrevPlayer();
-            updateGamePile(selectedCard);
             updateActivePlayer(mActivePlayer);
+            updateGamePile(selectedCard);
 
             // Reset
             selectedCard = null;
-            //message.setVisible(false);
+            message.setVisible(false);
             break;
         }
     }
